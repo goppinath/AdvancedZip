@@ -24,15 +24,19 @@ let package = Package(
             path: "Sources/ObjCAdvancedZip",
             cSettings: [
                 .headerSearchPath("include"),
+                .headerSearchPath("lzma/include"),
                 .define("HAVE_INTTYPES_H"),
                 .define("HAVE_PKCRYPT"),
                 .define("HAVE_STDINT_H"),
                 .define("HAVE_WZAES"),
                 .define("HAVE_ZLIB"),
-                .define("ZLIB_COMPAT")
+                .define("ZLIB_COMPAT"),
+                .define("HAVE_LZMA"),
+                .define("LZMA_API_STATIC")
             ],
             linkerSettings: [
                 .linkedLibrary("z"),
+                .linkedLibrary("lzma"),
                 .linkedLibrary("iconv"),
                 .linkedFramework("Security"),
             ]
