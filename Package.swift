@@ -10,6 +10,12 @@ let package = Package(
         .library(
             name: "AdvancedZip",
             targets: ["AdvancedZip"]),
+        .library(name: "AdvancedZip-Static",
+                 type: .static,
+                 targets: ["AdvancedZip"]),
+        .library(name: "AdvancedZip-Dynamic",
+                 type: .dynamic,
+                 targets: ["AdvancedZip"])
     ],
     dependencies: [
         // Dependencies declare other packages that this package depends on.
