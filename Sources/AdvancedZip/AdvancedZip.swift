@@ -10,6 +10,10 @@ import ObjCAdvancedZip
 
 public struct AdvancedZip {
     
+    public enum Error: Swift.Error {
+        case couldNotCreateZipFile
+    }
+    
     public static func unzipFile(at sourceURL: URL,
                                  to destinationURL: URL,
                                  overwrite: Bool,
@@ -18,5 +22,11 @@ public struct AdvancedZip {
                                    toDestination: destinationURL.path,
                                    overwrite: overwrite,
                                    password: password)
+    }
+    
+    public static func zip(contentsOfDirectoryURL sourceURL: URL, to destinationURL: URL) throws {
+        guard SSZipArchive.createZipFile(atPath: destinationURL.path, withContentsOfDirectory: sourceURL.path) else {
+            throw Error.couldNotCreateZipFile
+        }
     }
 }
