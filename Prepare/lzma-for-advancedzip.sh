@@ -7,32 +7,39 @@ cmake -G Xcode
 
 mkdir build
 
-# iOS Simulator (arm64 + x86_64)
+# Clean
+rm -rf build/universal
+
+# iOS Simulator arm64
 xcodebuild build \
   -scheme liblzma \
   -derivedDataPath derived_data \
-  -arch arm64 \
   -sdk iphonesimulator \
   BUILD_LIBRARY_FOR_DISTRIBUTION=YES \
-  ONLY_ACTIVE_ARCH=NO \
+  ARCHS="arm64" \
+  ONLY_ACTIVE_ARCH=YES \
   SKIP_INSTALL=NO
 
+mkdir -p build/ios_simulator_arm64
+cp -r Debug/ build/ios_simulator_arm64
+
+# iOS Simulator x86_64
+xcodebuild build \
+  -scheme liblzma \
+  -derivedDataPath derived_data \
+  -sdk iphonesimulator \
+  BUILD_LIBRARY_FOR_DISTRIBUTION=YES \
+  ARCHS="x86_64" \
+  ONLY_ACTIVE_ARCH=YES \
+  SKIP_INSTALL=NO
+
+mkdir -p build/ios_simulator_x86_64
+cp -r Debug/ build/ios_simulator_x86_64
+
 mkdir -p build/ios_simulators
-cp -r Debug/ build/ios_simulators
+lipo -create -output "build/ios_simulators/liblzma.a" "build/ios_simulator_arm64/liblzma.a" "build/ios_simulator_x86_64/liblzma.a"
 
-# xcodebuild build \
-#   -scheme liblzma \
-#   -derivedDataPath derived_data \
-#   -arch x86_64 \
-#   -sdk iphonesimulator \
-#   BUILD_LIBRARY_FOR_DISTRIBUTION=YES \
-#   ONLY_ACTIVE_ARCH=NO \
-#   SKIP_INSTALL=NO
-
-# mkdir -p build/ios_simulators
-# cp -r Debug/ build/ios_simulators
-
-# iOS Device xcarchive (arm64)
+# iOS Device
 xcodebuild build \
   -scheme liblzma \
   -derivedDataPath derived_data \
