@@ -11,18 +11,34 @@ mkdir build
 xcodebuild build \
   -scheme liblzma \
   -derivedDataPath derived_data \
+  -arch arm64 \
   -sdk iphonesimulator \
-  BUILD_LIBRARY_FOR_DISTRIBUTION=YES
+  BUILD_LIBRARY_FOR_DISTRIBUTION=YES \
+  ONLY_ACTIVE_ARCH=NO \
+  SKIP_INSTALL=NO
 
 mkdir -p build/ios_simulators
 cp -r Debug/ build/ios_simulators
+
+# xcodebuild build \
+#   -scheme liblzma \
+#   -derivedDataPath derived_data \
+#   -arch x86_64 \
+#   -sdk iphonesimulator \
+#   BUILD_LIBRARY_FOR_DISTRIBUTION=YES \
+#   ONLY_ACTIVE_ARCH=NO \
+#   SKIP_INSTALL=NO
+
+# mkdir -p build/ios_simulators
+# cp -r Debug/ build/ios_simulators
 
 # iOS Device xcarchive (arm64)
 xcodebuild build \
   -scheme liblzma \
   -derivedDataPath derived_data \
   -sdk iphoneos \
-  BUILD_LIBRARY_FOR_DISTRIBUTION=YES
+  BUILD_LIBRARY_FOR_DISTRIBUTION=YES \
+  SKIP_INSTALL=NO
 
 mkdir -p build/ios_devices
 cp -r Debug/ build/ios_devices
@@ -32,7 +48,9 @@ xcodebuild build \
   -scheme liblzma \
   -derivedDataPath derived_data \
   -sdk macosx \
-  BUILD_LIBRARY_FOR_DISTRIBUTION=YES
+  BUILD_LIBRARY_FOR_DISTRIBUTION=YES \
+  ONLY_ACTIVE_ARCH=NO \
+  SKIP_INSTALL=NO
 
 mkdir -p build/macos_devices
 cp -r Debug/ build/macos_devices
@@ -52,4 +70,3 @@ xcodebuild -create-xcframework \
     -library build/ios_devices/liblzma.a -headers build/universal/include \
     -library build/macos_devices/liblzma.a -headers build/universal/include \
     -output build/universal/LZMA.xcframework
-    
