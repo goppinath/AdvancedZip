@@ -24,13 +24,16 @@ let package = Package(
     targets: [
         // Targets are the basic building blocks of a package. A target can define a module or a test suite.
         // Targets can depend on other targets in this package, and on products in packages this package depends on.
+        .binaryTarget(
+            name: "LZMA",
+            path: "Sources/ObjCAdvancedZip/LZMA.xcframework"
+        ),
         .target(
             name: "ObjCAdvancedZip",
-            dependencies: [],
+            dependencies: ["LZMA"],
             path: "Sources/ObjCAdvancedZip",
             cSettings: [
                 .headerSearchPath("include"),
-                .headerSearchPath("lzma/include"),
                 .define("HAVE_INTTYPES_H"),
                 .define("HAVE_PKCRYPT"),
                 .define("HAVE_STDINT_H"),
@@ -42,7 +45,6 @@ let package = Package(
             ],
             linkerSettings: [
                 .linkedLibrary("z"),
-                .linkedLibrary("lzma"),
                 .linkedLibrary("iconv"),
                 .linkedFramework("Security"),
             ]
