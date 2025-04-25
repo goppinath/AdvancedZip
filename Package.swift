@@ -1,21 +1,27 @@
-// swift-tools-version: 5.4
+// swift-tools-version: 5.9
 // The swift-tools-version declares the minimum version of Swift required to build this package.
 
 import PackageDescription
 
 let package = Package(
     name: "AdvancedZip",
+    platforms: [
+        .iOS(.v15),  // iOS 15 and later
+        .macOS(.v12),  // macOS Monterey (12) and later
+    ],
     products: [
         // Products define the executables and libraries a package produces, and make them visible to other packages.
         .library(
             name: "AdvancedZip",
             targets: ["AdvancedZip"]),
-        .library(name: "AdvancedZip-Static",
-                 type: .static,
-                 targets: ["AdvancedZip"]),
-        .library(name: "AdvancedZip-Dynamic",
-                 type: .dynamic,
-                 targets: ["AdvancedZip"])
+        .library(
+            name: "AdvancedZip-Static",
+            type: .static,
+            targets: ["AdvancedZip"]),
+        .library(
+            name: "AdvancedZip-Dynamic",
+            type: .dynamic,
+            targets: ["AdvancedZip"]),
     ],
     dependencies: [
         // Dependencies declare other packages that this package depends on.
@@ -41,7 +47,7 @@ let package = Package(
                 .define("HAVE_ZLIB"),
                 .define("ZLIB_COMPAT"),
                 .define("HAVE_LZMA"),
-                .define("LZMA_API_STATIC")
+                .define("LZMA_API_STATIC"),
             ],
             linkerSettings: [
                 .linkedLibrary("z"),

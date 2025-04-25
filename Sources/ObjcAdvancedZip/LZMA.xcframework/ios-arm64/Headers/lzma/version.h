@@ -1,3 +1,5 @@
+/* SPDX-License-Identifier: 0BSD */
+
 /**
  * \file        lzma/version.h
  * \brief       Version number
@@ -6,9 +8,6 @@
 
 /*
  * Author: Lasse Collin
- *
- * This file has been put into the public domain.
- * You can do whatever you want with this file.
  */
 
 #ifndef LZMA_H_INTERNAL
@@ -20,10 +19,10 @@
 #define LZMA_VERSION_MAJOR 5
 
 /** \brief Minor version number of the liblzma release. */
-#define LZMA_VERSION_MINOR 5
+#define LZMA_VERSION_MINOR 8
 
 /** \brief Patch version number of the liblzma release. */
-#define LZMA_VERSION_PATCH 0
+#define LZMA_VERSION_PATCH 1
 
 /**
  * \brief Version stability marker
@@ -33,7 +32,7 @@
  *   - LZMA_VERSION_STABILITY_BETA
  *   - LZMA_VERSION_STABILITY_STABLE
  */
-#define LZMA_VERSION_STABILITY LZMA_VERSION_STABILITY_ALPHA
+#define LZMA_VERSION_STABILITY LZMA_VERSION_STABILITY_STABLE
 
 /** \brief Commit version number of the liblzma release */
 #ifndef LZMA_VERSION_COMMIT
@@ -106,7 +105,7 @@
 		LZMA_VERSION_COMMIT)
 
 
-/* #ifndef is needed for use with windres (MinGW or Cygwin). */
+/* #ifndef is needed for use with windres (MinGW-w64 or Cygwin). */
 #ifndef LZMA_H_INTERNAL_RC
 
 /**
